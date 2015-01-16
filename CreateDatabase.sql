@@ -16,7 +16,6 @@ GO
 CREATE DATABASE [SuperStoreManagerDB] COLLATE Chinese_PRC_90_CI_AI WITH TRUSTWORTHY ON, DB_CHAINING ON;
 GO
 
-
 ------------------------------------------------------------
 -- CREATE SCHEMA for database [[SuperStoreManagerDB]]
 ------------------------------------------------------------
