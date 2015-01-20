@@ -30,7 +30,7 @@ GO
 -- CREATE TABLE [dbo].[StoreInfo]
 ------------------------------------------------------------
 CREATE TABLE [dbo].[StoreInfo](
-	[StoreId] [int] IDENTITY(1,1) NOT NULL,
+	[StoreId] [bigint] IDENTITY(1,1) NOT NULL,
 	[StoreName] [nvarchar](50) NOT NULL,
 	[StoreTypeId] [int] NOT NULL,
 	[Description] [nvarchar](50) NULL,
