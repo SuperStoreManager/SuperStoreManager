@@ -62,6 +62,13 @@ CREATE TABLE [dbo].[AdminDetailInfo](
 
 GO
 
+ALTER TABLE [dbo].[AdminDetailInfo]  WITH CHECK ADD  CONSTRAINT [FK_AdminDetailInfo_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[AdminDetailInfo] CHECK CONSTRAINT [FK_AdminDetailInfo_StoreInfo]
+GO
+
 ------------------------------------------------------------
 -- CREATE TABLE [dbo].[EmployeeInfo]
 ------------------------------------------------------------
@@ -81,6 +88,13 @@ CREATE TABLE [dbo].[EmployeeInfo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[EmployeeInfo]  WITH CHECK ADD  CONSTRAINT [FK_EmployeeInfo_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[EmployeeInfo] CHECK CONSTRAINT [FK_EmployeeInfo_StoreInfo]
 GO
 
 ------------------------------------------------------------
@@ -123,6 +137,27 @@ CREATE TABLE [dbo].[Appointment](
 
 GO
 
+ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_EmployeeInfo] FOREIGN KEY([EmployeeId])
+REFERENCES [dbo].[EmployeeInfo] ([EmployeeId])
+GO
+
+ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_EmployeeInfo]
+GO
+
+ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_FeatureInfo] FOREIGN KEY([FeatureId])
+REFERENCES [dbo].[FeatureInfo] ([Id])
+GO
+
+ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_FeatureInfo]
+GO
+
+ALTER TABLE [dbo].[Appointment]  WITH CHECK ADD  CONSTRAINT [FK_Appointment_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[Appointment] CHECK CONSTRAINT [FK_Appointment_StoreInfo]
+GO
+
 ------------------------------------------------------------
 -- CREATE TABLE [dbo].[CashieringRecordInfo]
 ------------------------------------------------------------
@@ -144,6 +179,27 @@ CREATE TABLE [dbo].[CashieringRecordInfo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo]  WITH CHECK ADD  CONSTRAINT [FK_CashieringRecordInfo_EmployeeInfo] FOREIGN KEY([EmployeeId])
+REFERENCES [dbo].[EmployeeInfo] ([EmployeeId])
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo] CHECK CONSTRAINT [FK_CashieringRecordInfo_EmployeeInfo]
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo]  WITH CHECK ADD  CONSTRAINT [FK_CashieringRecordInfo_FeatureInfo] FOREIGN KEY([FeatureId])
+REFERENCES [dbo].[FeatureInfo] ([Id])
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo] CHECK CONSTRAINT [FK_CashieringRecordInfo_FeatureInfo]
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo]  WITH CHECK ADD  CONSTRAINT [FK_CashieringRecordInfo_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[CashieringRecordInfo] CHECK CONSTRAINT [FK_CashieringRecordInfo_StoreInfo]
 GO
 
 ------------------------------------------------------------
@@ -175,6 +231,13 @@ CREATE TABLE [dbo].[AmountInfo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[AmountInfo]  WITH CHECK ADD  CONSTRAINT [FK_AmountInfo_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[AmountInfo] CHECK CONSTRAINT [FK_AmountInfo_StoreInfo]
 GO
 
 ------------------------------------------------------------
@@ -211,6 +274,13 @@ CREATE TABLE [dbo].[FeatureInfo](
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[FeatureInfo]  WITH CHECK ADD  CONSTRAINT [FK_FeatureInfo_StoreInfo] FOREIGN KEY([StoreId])
+REFERENCES [dbo].[StoreInfo] ([StoreId])
+GO
+
+ALTER TABLE [dbo].[FeatureInfo] CHECK CONSTRAINT [FK_FeatureInfo_StoreInfo]
 GO
 
 ------------------------------------------------------------
@@ -266,14 +336,29 @@ GO
 ------------------------------------------------------------
 -- CREATE TABLE [dbo].[DiscountAndFeatureMapping]
 ------------------------------------------------------------
-CREATE TABLE [dbo].[IncomeInfo](
-	[StoreId] [bigint] NOT NULL,
-	[TotalIncome] [decimal](18, 0) NOT NULL,
-	[IncomeCount] [int] NOT NULL,
- CONSTRAINT [PK_IncomeInfo] PRIMARY KEY CLUSTERED 
+CREATE TABLE [dbo].[DiscountAndFeatureMapping](
+	[Id] [bigint] NOT NULL,
+	[DiscountId] [bigint] NOT NULL,
+	[FeatureId] [bigint] NOT NULL,
+	[Description] [nvarchar](50) NULL,
+ CONSTRAINT [PK_DiscountAndFeatureMapping] PRIMARY KEY CLUSTERED 
 (
-	[StoreId] ASC
+	[Id] ASC
 )WITH (PAD_INDEX = OFF, STATISTICS_NORECOMPUTE = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS = ON, ALLOW_PAGE_LOCKS = ON) ON [PRIMARY]
 ) ON [PRIMARY]
 
+GO
+
+ALTER TABLE [dbo].[DiscountAndFeatureMapping]  WITH CHECK ADD  CONSTRAINT [FK_DiscountAndFeatureMapping_DiscountRecordInfo] FOREIGN KEY([DiscountId])
+REFERENCES [dbo].[DiscountRecordInfo] ([Id])
+GO
+
+ALTER TABLE [dbo].[DiscountAndFeatureMapping] CHECK CONSTRAINT [FK_DiscountAndFeatureMapping_DiscountRecordInfo]
+GO
+
+ALTER TABLE [dbo].[DiscountAndFeatureMapping]  WITH CHECK ADD  CONSTRAINT [FK_DiscountAndFeatureMapping_FeatureInfo] FOREIGN KEY([FeatureId])
+REFERENCES [dbo].[FeatureInfo] ([Id])
+GO
+
+ALTER TABLE [dbo].[DiscountAndFeatureMapping] CHECK CONSTRAINT [FK_DiscountAndFeatureMapping_FeatureInfo]
 GO
